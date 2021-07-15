@@ -1,3 +1,5 @@
+Disclaimer: This repo is foked from apple documentation.
+
 # Implementing User Authentication with Sign in with Apple
 
 Provide a way for users of your app to set up an account and start using your services.
