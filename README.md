@@ -7,8 +7,9 @@ Sample application: [GitHub - torusresearch/torus-apple-nativelogin-demo: Demo a
 
 1. Add “sign in with apple” using ASAuthentication. (Reference: https://developer.apple.com/documentation/authenticationservices/implementing_user_authentication_with_sign_in_with_apple)
 2. Import “torus-swift-direct-sdk” in your project. (Reference: https://github.com/torusresearch/torus-direct-swift-sdk/)
-3. implement delegate methods to access the signed JWT. 
-4. Call .getTorusKey() method on directAuth to retrieve private key
+3. Create your own verifier on developer.tor.us.
+4. implement delegate methods to access the signed JWT. 
+5. Call .getTorusKey() method on directAuth to retrieve private key
 
 ## Overview
 
