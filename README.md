@@ -82,6 +82,23 @@ func authorizationController(controller: ASAuthorizationController, didCompleteW
         let fullName = appleIDCredential.fullName
         let email = appleIDCredential.email
         
+        let token = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
+        let sub = token.sub // String. JWT decode to get the actual sub.
+            
+        let tdsdk = TorusSwiftDirectSDK(aggregateVerifierType: .singleLogin, aggregateVerifierName: "apple-native", subVerifierDetails: [], network: .ROPSTEN, loglevel: .error)
+        tdsdk.getTorusKey(verifier: "apple-native", verifierId: sub, idToken: token).done{ data in
+            // data has private key and public key
+            print(data)
+
+            // alert to show details
+            let alert = UIAlertController(title: "Private Key", message: data["privateKey"] as? String, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        }.catch{ error in
+            print(error)
+        }
+
         // For the purpose of this demo app, store the `userIdentifier` in the keychain.
         self.saveUserInKeychain(userIdentifier)
         
