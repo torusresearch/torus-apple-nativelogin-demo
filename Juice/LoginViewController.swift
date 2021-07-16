@@ -8,6 +8,7 @@ Login view controller.
 import UIKit
 import AuthenticationServices
 import TorusSwiftDirectSDK
+import JWTDecode
 
 class LoginViewController: UIViewController {
     
@@ -67,10 +68,18 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             // Create an account in your system.
             let userIdentifier = appleIDCredential.user
 //            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-            let token = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
-            let sub = "001612.3a8e33865c8b481e8c184670eea17c54.0753" //hardcoded for now. JWT decode to get the actual sub.
+//            let email = appleIDCredential.email
             
+            let token = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
+            let JWT = try? JWTDecode.decode(jwt: token) 
+            
+            let claim = JWT?.claim(name: "sub")
+            guard let sub = claim?.string else {
+                print("sub missing")
+                return
+            }
+            
+            // initializeSDK
             let tdsdk = TorusSwiftDirectSDK(aggregateVerifierType: .singleLogin, aggregateVerifierName: "apple-native", subVerifierDetails: [], network: .ROPSTEN, loglevel: .error)
             tdsdk.getTorusKey(verifier: "apple-native", verifierId: sub, idToken: token).done{ data in
                 print(data)
