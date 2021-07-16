@@ -1,6 +1,17 @@
+Disclaimer: This repo is foked from apple documentation.
+
 # Implementing User Authentication with Sign in with Apple
 
 Provide a way for users of your app to set up an account and start using your services.
+
+## Guide: How to integrate CustomAuth with apple native logins 
+Sample application: [GitHub - torusresearch/torus-apple-nativelogin-demo: Demo application for apple id native logins on iOS](https://github.com/torusresearch/torus-apple-nativelogin-demo)
+
+1. Add “sign in with apple” using ASAuthentication. (Reference: https://developer.apple.com/documentation/authenticationservices/implementing_user_authentication_with_sign_in_with_apple)
+2. Import “torus-swift-direct-sdk” in your project. (Reference: https://github.com/torusresearch/torus-direct-swift-sdk/)
+3. Create your own verifier on developer.tor.us.
+4. implement delegate methods to access the signed JWT. 
+5. Call .getTorusKey() method on directAuth to retrieve private key
 
 ## Overview
 
